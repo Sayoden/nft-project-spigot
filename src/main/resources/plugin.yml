@@ -1,0 +1,4 @@
+name: marketplace-nft
+version: '1.0.0'
+main: fr.sayoden.nft.MarketPlacePlugin
+api-version: '1.21'
