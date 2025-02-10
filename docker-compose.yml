@@ -16,3 +16,16 @@ services:
     volumes:
       - ./spigot-data:/data
     restart: unless-stopped
+
+  hardhat:
+    image: node:21-alpine
+    container_name: hardhat
+    ports:
+      - "8545:8545"
+    working_dir: /app
+    volumes:
+      - ./hardhat:/app
+    command: >
+      sh -c "npm install --save-dev hardhat &&
+             echo 'module.exports={networks:{hardhat:{chainId:1337}},solidity:\"0.8.20\"};' > hardhat.config.js &&
+             npx hardhat node"
