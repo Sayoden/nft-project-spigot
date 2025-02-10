@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  spigot:
+    image: itzg/minecraft-server:java21-alpine
+    container_name: spigot
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      VERSION: "1.21.1"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: "minecraft123"
+      MEMORY: "5G"
+    volumes:
+      - ./spigot-data:/data
+    restart: unless-stopped
