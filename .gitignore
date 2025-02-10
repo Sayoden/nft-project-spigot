@@ -116,10 +116,17 @@ run/
 
 # Exclure les volumes de données
 spigot-data/
-hardhat/
 
 # Exclure les fichiers temporaires de Docker Compose
 .docker/
 .dockerignore
 docker-compose.override.yml
+
+Exclure les fichiers générés par Hardhat
+docker/hardhat/artifacts/
+docker/hardhat/cache/
+docker/hardhat/node_modules/
+docker/hardhat/deployed_contract.json
+docker/hardhat/typechain-types/
+
 

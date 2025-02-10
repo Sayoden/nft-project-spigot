@@ -1,19 +1,38 @@
-# Init Hardhat project
-- npm install -g hardhat
-- npx hardhat 
+# Hardhat Development with Docker
 
-# Run Hardhat node
-- npx hardhat node
+## 🚀 Setup & Initialization
+With Docker, Hardhat is now fully containerized, making setup and deployment seamless.
 
-## Don't forget to cp the /scripts and /contracts folder into your hardhat folder
+### **Start the Hardhat Environment**
+```sh
+# Build and start the services in detached mode
+docker compose up -d
+```
 
-# Deploy and get contract address
-- npx hardhat run scripts/deploy.js --network localhost
+### **Deploy a Contract Locally**
+```sh
+docker compose exec hardhat npx hardhat run scripts/deploy.js --network localhost
+```
 
 ---
+## 🌍 Deploying on a Testnet (Sepolia)
 
-Put this config into your hardhat.config.js
-```js
+### **1️⃣ Add Environment Variables**
+Create a `.env` file in the Hardhat folder with the following content:
+```sh
+ALCHEMY_API_URL="https://eth-sepolia.alchemyapi.io/v2/YOUR_API_KEY"
+PRIVATE_KEY="0xYOUR_PRIVATE_KEY"
+```
+
+### **2️⃣ Deploy to Sepolia**
+```sh
+docker compose exec hardhat npx hardhat run scripts/deploy.js --network sepolia
+```
+
+---
+## ⚙️ Hardhat Configuration
+Ensure your `hardhat.config.ts` is properly set up:
+```ts
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import dotenv from "dotenv";
@@ -31,18 +50,4 @@ const config: HardhatUserConfig = {
 };
 
 export default config;
-```
-
----
-# Deploy contract on testnet
-
-- npm install dotenv
-- Create .env file with the following content
-```shell
-ALCHEMY_API_URL="https://eth-sepolia.alchemyapi.io/v2/VOTRE_API_KEY"
-PRIVATE_KEY="0xVOTRE_CLE_PRIVEE"
-```
-- Then push your contract on sepolia network: 
-```shell
-npx hardhat run scripts/deploy.js --network sepolia
 ```
