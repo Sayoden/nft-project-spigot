@@ -111,3 +111,13 @@ buildNumber.properties
 
 # Common working directory
 run/
+
+# Exclure les volumes de données
+spigot-data/
+hardhat/
+
+# Exclure les fichiers temporaires de Docker Compose
+.docker/
+.dockerignore
+docker-compose.override.yml
+

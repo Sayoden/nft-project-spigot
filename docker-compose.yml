@@ -1,18 +1,43 @@
 version: '3.8'
-
 services:
-  spigot:
-    image: itzg/minecraft-server:java21-alpine
-    container_name: spigot
-    ports:
-      - "25565:25565"
-    environment:
-      EULA: "TRUE"
-      TYPE: "PAPER"
-      VERSION: "1.21.1"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: "minecraft123"
-      MEMORY: "5G"
-    volumes:
-      - ./spigot-data:/data
-    restart: unless-stopped
+ spigot:
+   image: itzg/minecraft-server:java21-alpine
+   container_name: spigot
+   ports:
+     - "25565:25565"
+   environment:
+     EULA: "TRUE"
+     TYPE: "PAPER"
+     VERSION: "1.21.1"
+     ENABLE_RCON: "true"
+     RCON_PASSWORD: "minecraft123"
+     MEMORY: "5G"
+   volumes:
+     - ./spigot-data:/data
+   restart: unless-stopped
+   depends_on:
+     - hardhat
+
+ hardhat:
+   image: node:21-alpine
+   container_name: hardhat
+   ports:
+     - "8545:8545"
+   working_dir: /app
+   volumes:
+     - ./hardhat:/app
+   command: >
+     sh -c "npm install --save-dev hardhat &&
+            echo 'module.exports={networks:{hardhat:{chainId:1337}},solidity:\"0.8.20\"};' > hardhat.config.js &&
+            npx hardhat node"
+   healthcheck:
+     test: ["CMD", "nc", "-z", "localhost", "8545"]
+     interval: 30s
+     timeout: 10s
+     retries: 3
+   networks:
+     - blockchain_network
+
+networks:
+ blockchain_network:
+   driver: bridge
