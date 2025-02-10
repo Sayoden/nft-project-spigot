@@ -28,11 +28,12 @@ services:
      - ./hardhat:/app
    command: >
      sh -c "if [ ! -f hardhat.config.js ]; then 
-               npm install --save-dev hardhat &&
-               npx hardhat init --force &&
-               echo 'module.exports={networks:{hardhat:{chainId:1337}},solidity:\"0.8.20\"};' > hardhat.config.js;
-            fi &&
-            npx hardhat node"
+            npm install --save-dev hardhat &&
+            npx hardhat init --force &&
+            echo 'module.exports={networks:{hardhat:{chainId:1337}},solidity:\"0.8.20\"};' > hardhat.config.js;
+         fi &&
+         mkdir -p contracts &&
+         npx hardhat node"
    healthcheck:
      test: ["CMD", "nc", "-z", "localhost", "8545"]
      interval: 30s
