@@ -19,7 +19,7 @@ services:
      - hardhat
 
  hardhat:
-   image: node:21-alpine
+   image: node:20-alpine
    container_name: hardhat
    ports:
      - "8545:8545"
@@ -27,8 +27,11 @@ services:
    volumes:
      - ./hardhat:/app
    command: >
-     sh -c "npm install --save-dev hardhat &&
-            echo 'module.exports={networks:{hardhat:{chainId:1337}},solidity:\"0.8.20\"};' > hardhat.config.js &&
+     sh -c "if [ ! -f hardhat.config.js ]; then 
+               npm install --save-dev hardhat &&
+               npx hardhat init --force &&
+               echo 'module.exports={networks:{hardhat:{chainId:1337}},solidity:\"0.8.20\"};' > hardhat.config.js;
+            fi &&
             npx hardhat node"
    healthcheck:
      test: ["CMD", "nc", "-z", "localhost", "8545"]
