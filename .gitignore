@@ -1,4 +1,4 @@
-spigot-data/
+docker/spigot-data/
 
 # User-specific stuff
 .idea/
@@ -105,7 +105,7 @@ pom.xml.versionsBackup
 pom.xml.next
 
 release.properties
-dependency-reduced-pom.xml
+minecraft/dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
@@ -115,18 +115,17 @@ buildNumber.properties
 run/
 
 # Exclure les volumes de données
-spigot-data/
 
 # Exclure les fichiers temporaires de Docker Compose
 .docker/
 .dockerignore
 docker-compose.override.yml
 
-Exclure les fichiers générés par Hardhat
-docker/hardhat/artifacts/
-docker/hardhat/cache/
-docker/hardhat/node_modules/
-docker/hardhat/deployed_contract.json
-docker/hardhat/typechain-types/
+docker/hardhat/*
+!docker/hardhat/.gitkeep
+docker/spigot-data/*
+!docker/spigot-data/.gitkeep
+docker/frontend/*
+!docker/frontend/.gitkeep
 
 

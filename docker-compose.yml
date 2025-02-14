@@ -14,25 +14,63 @@ services:
       RCON_PASSWORD: "minecraft123"
       MEMORY: "5G"
     volumes:
-      - ./spigot-data:/data
+      - ./docker/spigot-data:/data
     restart: unless-stopped
     networks:
       - blockchain_network
 
   hardhat:
-    build: ./docker/hardhat
+    build:
+      context: ./contracts
     container_name: hardhat-node
     volumes:
+      - ./contracts:/source:ro
       - ./docker/hardhat:/app
-      - node_modules:/app/node_modules
     ports:
       - "8545:8545"
     restart: unless-stopped
     networks:
       - blockchain_network
 
+
+
+  front:
+    build:
+      context: ./frontend
+    container_name: frontend
+    volumes:
+      - ./frontend:/source:ro
+      - ./docker/frontend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    restart: unless-stopped
+    networks:
+      - blockchain_network
+
+#  minecraft_plugin:
+#    build:
+#      context: ./minecraft
+#      dockerfile: Dockerfile
+#    container_name: minecraft-plugin-builder
+#    volumes:
+#      - ./minecraft:/app
+#      - target_minecraft:/app/target
+#    working_dir: /app
+#    command: ["mvn", "clean", "package"]
+#    restart: "no"
+#    networks:
+#      - blockchain_network
+
+
+
 volumes:
-  node_modules:
+  hardhat_data: {} # Stockage des fichiers de Hardhat
+  frontend_build: {} # Cache de build Next.js
+  target_minecraft: {} # Build du plugin Java
+  node_modules_contracts: {} # node_modules de Hardhat
+  node_modules_frontend: {} # node_modules du frontend
 
 networks:
   blockchain_network:
