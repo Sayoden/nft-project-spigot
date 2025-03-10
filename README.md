@@ -1,137 +1,146 @@
-# 🏰 Minecraft NFT Marketplace
-An integrated NFT marketplace platform for Minecraft, allowing players to buy, sell, and manage NFTs both in-game and through a web interface.
+🏰 Marketplace NFT pour Minecraft
+Une plateforme intégrée de marketplace NFT pour Minecraft, permettant aux joueurs d'acheter, vendre et gérer des NFTs à la fois en jeu et via une interface web.
 
-## 🎮 Features
+🎮 Fonctionnalités
+🌐 Interface Web
+🔑 Authentification
 
-### 🌐 Web Interface
-- **🔑 Authentication**
-  - 🔗 Login with Minecraft account
-  - 🔒 Automated wallet management
-  - 🏠 Personalized dashboard
+🔗 Connexion avec un compte Minecraft
+🔒 Gestion automatisée des portefeuilles
+🏠 Tableau de bord personnalisé
+🎨 NFTs
 
-- **🎨 NFTs**
-  - 🔍 Browse all available NFTs
-  - ✨ Create and list NFTs for sale
-  - 💰 Purchase NFTs with MCoins
-  - 🖼️ Personal NFT gallery
+🔍 Parcourir tous les NFTs disponibles
+✨ Créer et mettre en vente des NFTs
+💰 Acheter des NFTs avec des MCoins
+🖼️ Galerie personnelle de NFTs
+💳 Transactions
 
-- **💳 Transactions**
-  - 📜 Complete transaction history
-  - 📊 Details: ID, from, to, amount, date, status
-  - 🔎 Transaction filtering and search
+📜 Historique complet des transactions
+📊 Détails : ID, expéditeur, destinataire, montant, date, statut
+🔎 Filtrage et recherche des transactions
+👤 Profils des joueurs
 
-- **👤 Player Profiles**
-  - 🏆 Active players list
-  - 📈 Detailed stats: level, balance, blocks placed
-  - 🟢 Real-time status (online/offline)
-  - ⏳ Last connection time
+🏆 Liste des joueurs actifs
+📈 Statistiques détaillées : niveau, solde, blocs placés
+🟢 Statut en temps réel (en ligne/hors ligne)
+⏳ Dernière connexion
+⛏️ Plugin Minecraft
+💬 Commandes en jeu
 
-### ⛏️ Minecraft Plugin
-- **💬 In-Game Commands**
-  - 📜 `/nft list` - View available NFTs
-  - 🛒 `/nft buy <id>` - Purchase an NFT
-  - 💵 `/nft sell <id> <price>` - List NFT for sale
-  - 💰 `/mcoin balance` - Check balance
-  - 🔄 `/mcoin send <player> <amount>` - Send MCoins
+📜 /nft list - Voir les NFTs disponibles
+🛒 /nft buy <id> - Acheter un NFT
+💵 /nft sell <id> <prix> - Mettre en vente un NFT
+💰 /mcoin balance - Vérifier le solde de MCoins
+🔄 /mcoin send <joueur> <montant> - Envoyer des MCoins
+🎮 Interface en jeu
 
-- **🎮 In-Game Interface**
-  - 🏪 GUI marketplace menu
-  - 🎒 Personal NFT inventory
-  - 🏗️ 3D NFT visualization
-  - 🔔 Real-time notifications
+🏪 Menu marketplace en GUI
+🎒 Inventaire personnel de NFTs
+🏗️ Visualisation 3D des NFTs
+🔔 Notifications en temps réel
+💰 Système Économique
+🪙 MCoin (Token ERC20)
 
-### 💰 Economic System
-- **🪙 MCoin (ERC20 Token)**
-  - 🏦 Native virtual currency
-  - 🎁 Distribution to active players
-  - 🎮 In-game action rewards
-  - 🔄 Player-to-player trading
+🏦 Monnaie virtuelle native
+🎁 Distribution aux joueurs actifs
+🎮 Récompenses pour actions en jeu
+🔄 Échanges entre joueurs
+📜 NFTs (ERC721)
 
-- **📜 NFTs (ERC721)**
-  - ✅ Unique, verifiable items
-  - 📂 IPFS-stored metadata
-  - 🔐 On-chain ownership proof
-  - 🔄 Secure transfers
+✅ Objets uniques et vérifiables
+📂 Métadonnées stockées sur IPFS
+🔐 Preuve de propriété on-chain
+🔄 Transferts sécurisés
+🚀 Fonctionnalités Supplémentaires
+🔗 Intégration Cross-Platform
 
-### 🚀 Additional Features
-- **🔗 Cross-Platform Integration**
-  - 🔄 Seamless sync between web and Minecraft interfaces
-  - 📡 Real-time updates across platforms
-  - 🎛️ Unified wallet management
-  - 🖥️ Consistent UI/UX design
+🔄 Synchronisation fluide entre web et Minecraft
+📡 Mises à jour en temps réel sur toutes les plateformes
+🎛️ Gestion unifiée des portefeuilles
+🖥️ UI/UX cohérente
+📈 Fonctionnalités de Trading Avancées
 
-- **📈 Advanced Trading Features**
-  - 📊 NFT price history tracking
-  - 📉 Market trends visualization
-  - 🔥 Popular items highlighting
-  - ⚡ Batch operations support
+📊 Suivi de l'historique des prix des NFTs
+📉 Visualisation des tendances du marché
+🔥 Mise en avant des objets populaires
+⚡ Support des opérations en lot
+🏆 Engagement des Joueurs
 
-- **🏆 Player Engagement**
-  - 🏅 Achievement system for marketplace activities
-  - 📜 Trading leaderboards
-  - 💬 Social features (favorite sellers, watchlist)
-  - 🔔 Custom notifications settings
+🏅 Système de succès pour les activités sur la marketplace
+📜 Classements des meilleurs traders
+💬 Fonctionnalités sociales (vendeurs favoris, watchlist)
+🔔 Paramètres de notifications personnalisées
+🛡️ Sécurité
 
-- **🛡️ Security Features**
-  - 🔏 Multi-signature support for high-value trades
-  - 🚦 Transaction limits and cooling periods
-  - 🤖 Automated fraud detection
-  - ⏸️ Emergency pause functionality
+🔏 Support multi-signatures pour les échanges de grande valeur
+🚦 Limites de transactions et périodes de refroidissement
+🤖 Détection automatisée des fraudes
+⏸️ Fonctionnalité de pause d'urgence
+⚙️ Architecture des Smart Contracts
+🛠️ Conception Modulaire
 
-### ⚙️ Smart Contract Architecture
-- **🛠️ Modular Design**
-  - 🔄 Upgradeable contracts
-  - 🔑 Role-based access control
-  - 📨 Event-driven architecture
-  - ⚡ Gas optimization
+🔄 Contrats évolutifs
+🔑 Contrôle d’accès basé sur les rôles
+📨 Architecture événementielle
+⚡ Optimisation du gas
+📂 Gestion des Données
 
-- **📂 Data Management**
-  - 📡 IPFS integration for metadata
-  - 💾 Efficient on-chain storage
-  - 🔄 Automated backups
-  - 🛡️ Data integrity verification
-
-
-## 🔧 Technical Stack
-- **Frontend**: Next.js, TailwindCSS, shadcn/ui
-- **Blockchain**: Hardhat, Solidity, OpenZeppelin
-- **Game Integration**: Spigot API, Web3j
-- **Infrastructure**: Docker, IPFS
+📡 Intégration IPFS pour les métadonnées
+💾 Stockage on-chain efficace
+🔄 Sauvegardes automatiques
+🛡️ Vérification de l'intégrité des données
+🔧 Stack Technique
+Frontend : Next.js, TailwindCSS, shadcn/ui
+Blockchain : Hardhat, Solidity, OpenZeppelin
+Intégration Jeu : Spigot API, Web3j
+Infrastructure : Docker, IPFS
 
 ## 📊 System Architecture
 [![System Architecture](https://mermaid.ink/img/pako:eNqFVdtuEzEQ_ZXRSrw1QrR9ChJSLk2a0rRpU-jF6YOzO9lY3bUj25sqIvwBQgh44wG-APFpfAJje5NsIKj7ZO-eGZ-ZOcf7LopVglE9SjWfTeGq_XIkgZ4GG2R8gRpiJSXG1oBV0Be01Hxi76FWewVNNoy5hItLaFEOuOZZhrYV8PchTdMBl5doCy0NHNkpaixy4Emi0ZgltNg6JwyyIhUSUqTDSkCZpeWzNIxRseAW15_hUdgpzDzRJbTZMOfaEhlpNY8t9KRFtxBKUqKQ6tkzuMZx-DThMfoV1e5AAXHNHKCjKQvKJFR6w06V43Y-c7gVrRtPa1NAI45VIe0SbtkQ9Zya9xa1mIiYlxQ2QVu9WsIdawtNK2hmKn6Ip5zOomybDtx6Gu2wuVttwtYU4zC8UfT7-5cPMFDGiHGG1frNKApg97R9_BFrTTF-gLPOFZw_StRmKmb3f6M6rFksng8xyxzwn89dNhSphD4x5SnCRGloFHb6D65Pg24p30EMzV5VRj3eWci3H55ZtYPVGo582mPWRSccr9TGlmbcc-xBPVb22Ul4LcG54E4JBycVfM_jT9gl8gS2xVRBnXjUaxZU7VmeCmOfqOfzL4-80jwRMq2W0vH5TleGM5h5vzm0kLWU51g5_DS0kwQmE5dMmjBgV9t_Gfd90Bmr4uc8EwmZKQHajNeyq0Sd-ahz5ohYFzlBrQlPJwXLPVHx109eCyjtjvl1ffLBumhSkYG8lJG3dbBIhc_Ah1x4xXFqPcLci4MojRfUNue4CvzCwy9Z8BEQL2kD-41jt4L-O7mPELQ7XBiLebWKfqtU94vSTE2ecRlXB7aG7IeZ-VRmF-CAHXHS00SrnMxvxVxYgTuRh86UTiBPmejjT7oEal2SEHTQ92zrIuh1WfdNj9wri3DP9bov_Lh7ck5jU3oBbWHcsKsm6ZbQfeeTrGYFZa8q683M6crsCjkob4GyTXAtknRrxmvkIetz_YCWDidcU6tHUx1UtBflqHMuEvp1vXOvRxFJLcdRVKdlghNeZNbV-p6gvLBquJBxVLe6wL1IqyKdRvUJzwztCs-3LTj1LV-_nXF5p9Rq__4PnixDFg)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNqFVdtuEzEQ_ZXRSrw1QrR9ChJSLk2a0rRpU-jF6YOzO9lY3bUj25sqIvwBQgh44wG-APFpfAJje5NsIKj7ZO-eGZ-ZOcf7LopVglE9SjWfTeGq_XIkgZ4GG2R8gRpiJSXG1oBV0Be01Hxi76FWewVNNoy5hItLaFEOuOZZhrYV8PchTdMBl5doCy0NHNkpaixy4Emi0ZgltNg6JwyyIhUSUqTDSkCZpeWzNIxRseAW15_hUdgpzDzRJbTZMOfaEhlpNY8t9KRFtxBKUqKQ6tkzuMZx-DThMfoV1e5AAXHNHKCjKQvKJFR6w06V43Y-c7gVrRtPa1NAI45VIe0SbtkQ9Zya9xa1mIiYlxQ2QVu9WsIdawtNK2hmKn6Ip5zOomybDtx6Gu2wuVttwtYU4zC8UfT7-5cPMFDGiHGG1frNKApg97R9_BFrTTF-gLPOFZw_StRmKmb3f6M6rFksng8xyxzwn89dNhSphD4x5SnCRGloFHb6D65Pg24p30EMzV5VRj3eWci3H55ZtYPVGo582mPWRSccr9TGlmbcc-xBPVb22Ul4LcG54E4JBycVfM_jT9gl8gS2xVRBnXjUaxZU7VmeCmOfqOfzL4-80jwRMq2W0vH5TleGM5h5vzm0kLWU51g5_DS0kwQmE5dMmjBgV9t_Gfd90Bmr4uc8EwmZKQHajNeyq0Sd-ahz5ohYFzlBrQlPJwXLPVHx109eCyjtjvl1ffLBumhSkYG8lJG3dbBIhc_Ah1x4xXFqPcLci4MojRfUNue4CvzCwy9Z8BEQL2kD-41jt4L-O7mPELQ7XBiLebWKfqtU94vSTE2ecRlXB7aG7IeZ-VRmF-CAHXHS00SrnMxvxVxYgTuRh86UTiBPmejjT7oEal2SEHTQ92zrIuh1WfdNj9wri3DP9bov_Lh7ck5jU3oBbWHcsKsm6ZbQfeeTrGYFZa8q683M6crsCjkob4GyTXAtknRrxmvkIetz_YCWDidcU6tHUx1UtBflqHMuEvp1vXOvRxFJLcdRVKdlghNeZNbV-p6gvLBquJBxVLe6wL1IqyKdRvUJzwztCs-3LTj1LV-_nXF5p9Rq__4PnixDFg)
 
-## 🚀 Setup & Initialization
-With Docker, Hardhat is now fully containerized, making setup and deployment seamless.
-### **Start the Hardhat Environment**
+Voici la traduction en français :  
+
+---
+
+## 🚀 **Configuration & Initialisation**  
+Avec Docker, Hardhat est désormais entièrement conteneurisé, rendant l’installation et le déploiement fluides.  
+
+### **Démarrer l’Environnement Hardhat**  
 ```sh
-# Build and start the services in detached mode
+# Construire et démarrer les services en mode détaché
 docker compose up -d
-```
-### **Deploy a Contract Locally**
+```  
+
+### **Déployer un Smart Contract en Local**  
 ```sh
 docker compose exec hardhat npx hardhat run scripts/deploy.js --network localhost
-```
----
-## 🌍 Deploying on a Testnet (Sepolia)
-### **1️⃣ Add Environment Variables**
-Create a `.env` file in the Hardhat folder with the following content:
+```  
+---  
+
+## 🌍 **Déploiement sur un Testnet (Sepolia)**  
+
+### **1️⃣ Ajouter des Variables d’Environnement**  
+Créez un fichier `.env` dans le dossier Hardhat avec le contenu suivant :  
 ```sh
-ALCHEMY_API_URL="https://eth-sepolia.alchemyapi.io/v2/YOUR_API_KEY"
-PRIVATE_KEY="0xYOUR_PRIVATE_KEY"
-```
-### **2️⃣ Deploy to Sepolia**
+ALCHEMY_API_URL="https://eth-sepolia.alchemyapi.io/v2/VOTRE_CLE_API"
+PRIVATE_KEY="0xVOTRE_CLE_PRIVEE"
+```  
+
+### **2️⃣ Déployer sur Sepolia**  
 ```sh
 docker compose exec hardhat npx hardhat run scripts/deploy.js --network sepolia
-```
----
-## ⚙️ Hardhat Configuration
-Ensure your `hardhat.config.ts` is properly set up:
+```  
+---  
+
+## ⚙️ **Configuration de Hardhat**  
+Assurez-vous que votre fichier `hardhat.config.ts` est correctement configuré :  
 ```ts
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import dotenv from "dotenv";
 dotenv.config();
+
 const config: HardhatUserConfig = {
     solidity: "0.8.20",
     networks: {
@@ -141,5 +150,8 @@ const config: HardhatUserConfig = {
         }
     }
 };
+
 export default config;
-```
+```  
+
+---
