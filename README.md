@@ -1,9 +1,9 @@
 🏰 Marketplace NFT pour Minecraft
 Une plateforme intégrée de marketplace NFT pour Minecraft, permettant aux joueurs d'acheter, vendre et gérer des NFTs à la fois en jeu et via une interface web.
 
-🎮 Fonctionnalités
-🌐 Interface Web
-🔑 Authentification
+    🎮 Fonctionnalités
+    🌐 Interface Web
+    🔑 Authentification
 
 🔗 Connexion avec un compte Minecraft
 🔒 Gestion automatisée des portefeuilles
