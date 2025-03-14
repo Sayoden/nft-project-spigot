@@ -2,7 +2,19 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X, ChevronDown, CuboidIcon as Cube, Coins, Users, Book, Diamond } from "lucide-react"
+import {
+  Menu,
+  X,
+  ChevronDown,
+  CuboidIcon as Cube,
+  Coins,
+  Users,
+  Book,
+  Diamond,
+  Backpack,
+  Wallet,
+  Settings,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -34,14 +46,16 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed w-full z-50 transition-colors duration-300 ${isScrolled ? "bg-gray-900" : "bg-gradient-to-b from-gray-900/80 to-transparent"}`}
+      className={`fixed w-full z-50 transition-colors duration-300 ${
+        isScrolled ? "bg-gray-900" : "bg-gradient-to-b from-gray-900/80 to-transparent"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-green-500 flex items-center">
-              <Cube className="mr-2 h-8 w-8" />
+            <Link href="/" className="text-xl sm:text-2xl font-bold text-green-500 flex items-center">
+              <Cube className="mr-2 h-6 w-6 sm:h-8 sm:w-8" />
               MineCraft
             </Link>
           </div>
@@ -58,11 +72,12 @@ const Header = () => {
           </div>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-4 lg:space-x-8">
             <Link href="/blocks" className="text-sm font-medium text-white hover:text-green-400 flex items-center">
               <Cube className="mr-2 h-4 w-4" />
               Blocs
             </Link>
+
             <Link href="/nfts" className="text-sm font-medium text-white hover:text-green-400 flex items-center">
               <Diamond className="mr-2 h-4 w-4" />
               NFTs
@@ -96,9 +111,24 @@ const Header = () => {
               <DropdownMenuContent className="w-56 bg-gray-800 text-white border-gray-700">
                 <DropdownMenuLabel>Mon Profil Minecraft</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Inventaire</DropdownMenuItem>
-                <DropdownMenuItem>Portefeuille</DropdownMenuItem>
-                <DropdownMenuItem>Paramètres</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/account/inventory" className="w-full flex items-center">
+                    <Backpack className="mr-2 h-4 w-4" />
+                    Inventaire
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/account/wallet" className="w-full flex items-center">
+                    <Wallet className="mr-2 h-4 w-4" />
+                    Portefeuille
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/account/settings" className="w-full flex items-center">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Paramètres
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Se déconnecter</DropdownMenuItem>
               </DropdownMenuContent>
@@ -116,6 +146,7 @@ const Header = () => {
                   <Cube className="mr-2 h-5 w-5" />
                   Blocs
                 </Link>
+
                 <Link href="/nfts" className="text-base font-medium text-white hover:text-green-400 flex items-center">
                   <Diamond className="mr-2 h-5 w-5" />
                   NFTs
@@ -138,9 +169,30 @@ const Header = () => {
                   <Book className="mr-2 h-5 w-5" />
                   Guide
                 </Link>
-                <Button variant="ghost" className="text-white justify-start">
-                  Mon Compte
-                </Button>
+                <div className="border-t border-gray-700 pt-4">
+                  <p className="text-sm text-gray-400 mb-2">Mon Compte</p>
+                  <Link
+                    href="/account/inventory"
+                    className="block py-2 text-base font-medium text-white hover:text-green-400 flex items-center"
+                  >
+                    <Backpack className="mr-2 h-5 w-5" />
+                    Inventaire
+                  </Link>
+                  <Link
+                    href="/account/wallet"
+                    className="block py-2 text-base font-medium text-white hover:text-green-400 flex items-center"
+                  >
+                    <Wallet className="mr-2 h-5 w-5" />
+                    Portefeuille
+                  </Link>
+                  <Link
+                    href="/account/settings"
+                    className="block py-2 text-base font-medium text-white hover:text-green-400 flex items-center"
+                  >
+                    <Settings className="mr-2 h-5 w-5" />
+                    Paramètres
+                  </Link>
+                </div>
               </nav>
             </div>
           )}
