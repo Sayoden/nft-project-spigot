@@ -116,9 +116,18 @@ docker compose up -d
 
 ### **Déployer un Smart Contract en Local**  
 ```sh
+docker compose exec hardhat npm install hardhat
+docker compose exec hardhat npm install @openzeppelin/contracts
 docker compose exec hardhat npx hardhat run scripts/deploy.js --network localhost
 ```  
 ---  
+
+## 🧪 **Générer les classes Java par rapport aux contrats Solidity**
+Installer web3j cli: https://github.com/hyperledger-web3j/web3j-cli
+```sh
+web3j generate solidity -a docker/hardhat/artifacts/contracts/NFTMarketplace.json -o minecraft/src/main/java -p fr.sayoden.web3
+```
+--- 
 
 ## 🌍 **Déploiement sur un Testnet (Sepolia)**  
 
