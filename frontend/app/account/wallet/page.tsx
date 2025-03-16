@@ -1,13 +1,15 @@
+// app/account/wallet/page.tsx
 "use client"
-
 import { useState } from "react"
 import Link from "next/link"
-import { Wallet, ArrowUpRight, ArrowDownLeft, Copy, ExternalLink, Check } from "lucide-react"
+import { Wallet, ArrowUpRight, ArrowDownLeft, Copy, ExternalLink, Check, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { useWallet } from "@/hooks/use-wallet"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 // Données factices pour simuler les transactions
 const TRANSACTIONS = Array.from({ length: 10 }, (_, i) => ({
@@ -20,31 +22,23 @@ const TRANSACTIONS = Array.from({ length: 10 }, (_, i) => ({
 }))
 
 export default function WalletPage() {
-  const [isConnected, setIsConnected] = useState(false)
-  const [activeWallet, setActiveWallet] = useState(null)
+  const { isConnected, isConnecting, connect, disconnect,switchAccount, address, error, balance } = useWallet()
   const [copied, setCopied] = useState(false)
-
-  // Adresse factice du portefeuille
-  const walletAddress = "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
-  const shortAddress = `${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}`
+  
+  const shortAddress = address 
+    ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}` 
+    : ""
 
   const handleConnect = (walletType) => {
-    // Simulation de connexion
-    setTimeout(() => {
-      setIsConnected(true)
-      setActiveWallet(walletType)
-    }, 1000)
-  }
-
-  const handleDisconnect = () => {
-    setIsConnected(false)
-    setActiveWallet(null)
+    connect(walletType)
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(walletAddress)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    if (address) {
+      navigator.clipboard.writeText(address)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
   }
 
   return (
@@ -53,7 +47,15 @@ export default function WalletPage() {
         &larr; Retour au compte
       </Link>
       <h1 className="text-3xl md:text-4xl font-bold mb-8 text-green-400">Mon Portefeuille</h1>
-
+      
+      {error && (
+        <Alert variant="destructive" className="mb-4 bg-red-900 border-red-800">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle>Erreur</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      
       {!isConnected ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <WalletOption
@@ -61,18 +63,23 @@ export default function WalletPage() {
             description="Connectez-vous avec le portefeuille le plus populaire pour Ethereum"
             icon="/placeholder.svg?height=80&width=80"
             onClick={() => handleConnect("metamask")}
+            isLoading={isConnecting}
           />
           <WalletOption
             title="WalletConnect"
             description="Scannez un QR code pour vous connecter avec n'importe quel portefeuille mobile"
             icon="/placeholder.svg?height=80&width=80"
             onClick={() => handleConnect("walletconnect")}
+            isLoading={isConnecting}
+            disabled={true}
           />
           <WalletOption
             title="Coinbase Wallet"
             description="Utilisez Coinbase Wallet pour accéder à vos actifs"
             icon="/placeholder.svg?height=80&width=80"
             onClick={() => handleConnect("coinbase")}
+            isLoading={isConnecting}
+            disabled={true}
           />
         </div>
       ) : (
@@ -80,36 +87,45 @@ export default function WalletPage() {
           <Card className="bg-gray-800 border-gray-700">
             <CardHeader>
               <div className="flex justify-between items-center">
-                <CardTitle className="text-green-400">Portefeuille {activeWallet}</CardTitle>
+                <CardTitle className="text-green-400">Portefeuille MetaMask</CardTitle>
                 <Button
                   variant="outline"
                   className="border-gray-700 text-white hover:bg-gray-700"
-                  onClick={handleDisconnect}
+                  onClick={disconnect}
                 >
                   Déconnecter
                 </Button>
               </div>
               <CardDescription className="flex items-center mt-2 text-gray-300">
-                {shortAddress}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="ml-2 h-8 w-8 p-0 text-gray-400 hover:text-white"
-                  onClick={copyToClipboard}
-                >
-                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
-              </CardDescription>
+              {shortAddress}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="ml-2 h-8 w-8 p-0 text-gray-400 hover:text-white"
+                onClick={copyToClipboard}
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="ml-4 text-green-400 border-green-600"
+                onClick={switchAccount}
+                disabled={isConnecting}
+              >
+                {isConnecting ? "Chargement..." : "Changer de compte"}
+              </Button>
+            </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="bg-gray-900 p-4 rounded-lg">
-                  <p className="text-sm text-gray-400">Solde MCoin</p>
-                  <p className="text-2xl font-bold text-green-400">1,234.56 MCoin</p>
+                  <p className="text-sm text-gray-400">Solde ETH</p>
+                  <p className="text-2xl font-bold text-green-400">{balance || '0.00'} ETH</p>
                 </div>
                 <div className="bg-gray-900 p-4 rounded-lg">
-                  <p className="text-sm text-gray-400">Valeur estimée</p>
-                  <p className="text-2xl font-bold text-green-400">$2,469.12</p>
+                  <p className="text-sm text-gray-400">Solde MCoin</p>
+                  <p className="text-2xl font-bold text-green-400">0.00 MCoin</p>
                 </div>
               </div>
             </CardContent>
@@ -124,7 +140,6 @@ export default function WalletPage() {
               </Button>
             </CardFooter>
           </Card>
-
           <Tabs defaultValue="assets" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-gray-800 text-white">
               <TabsTrigger value="assets" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">
@@ -150,19 +165,14 @@ export default function WalletPage() {
                     </TableHeader>
                     <TableBody>
                       <TableRow className="border-gray-700">
+                        <TableCell className="font-medium text-white">ETH</TableCell>
+                        <TableCell className="text-white">{balance || '0.00'}</TableCell>
+                        <TableCell className="text-right text-white">-</TableCell>
+                      </TableRow>
+                      <TableRow className="border-gray-700">
                         <TableCell className="font-medium text-white">MCoin</TableCell>
-                        <TableCell className="text-white">1,234.56</TableCell>
-                        <TableCell className="text-right text-white">$2,469.12</TableCell>
-                      </TableRow>
-                      <TableRow className="border-gray-700">
-                        <TableCell className="font-medium text-white">Bloc Token</TableCell>
-                        <TableCell className="text-white">42.0</TableCell>
-                        <TableCell className="text-right text-white">$84.00</TableCell>
-                      </TableRow>
-                      <TableRow className="border-gray-700">
-                        <TableCell className="font-medium text-white">Craft Token</TableCell>
-                        <TableCell className="text-white">7.5</TableCell>
-                        <TableCell className="text-right text-white">$15.00</TableCell>
+                        <TableCell className="text-white">0.00</TableCell>
+                        <TableCell className="text-right text-white">-</TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
@@ -240,11 +250,13 @@ export default function WalletPage() {
   )
 }
 
-function WalletOption({ title, description, icon, onClick }) {
+function WalletOption({ title, description, icon, onClick, isLoading = false, disabled = false }) {
   return (
     <Card
-      className="bg-gray-800 border-gray-700 hover:border-green-500 transition-colors cursor-pointer"
-      onClick={onClick}
+      className={`bg-gray-800 border-gray-700 transition-colors ${
+        !disabled ? "hover:border-green-500 cursor-pointer" : "opacity-60 cursor-not-allowed"
+      }`}
+      onClick={!disabled && !isLoading ? onClick : undefined}
     >
       <CardHeader className="flex flex-row items-center gap-4">
         <img src={icon || "/placeholder.svg"} alt={title} className="h-12 w-12" />
@@ -254,12 +266,23 @@ function WalletOption({ title, description, icon, onClick }) {
         </div>
       </CardHeader>
       <CardFooter>
-        <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
-          <Wallet className="mr-2 h-4 w-4" />
-          Connecter
+        <Button 
+          className="w-full bg-green-500 hover:bg-green-600 text-white" 
+          disabled={disabled || isLoading}
+        >
+          {isLoading ? (
+            <>
+              <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>
+              Connexion...
+            </>
+          ) : (
+            <>
+              <Wallet className="mr-2 h-4 w-4" />
+              {disabled ? "Bientôt disponible" : "Connecter"}
+            </>
+          )}
         </Button>
       </CardFooter>
     </Card>
   )
 }
-

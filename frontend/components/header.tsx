@@ -1,6 +1,7 @@
+// components/header.tsx
 "use client"
-
 import { useState, useEffect } from "react"
+import { useWallet } from "@/hooks/use-wallet"
 import Link from "next/link"
 import {
   Menu,
@@ -24,11 +25,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { WalletIndicator } from "@/components/wallet-indicator"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-
+  const { disconnect } = useWallet();
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -37,13 +40,12 @@ const Header = () => {
         setIsScrolled(false)
       }
     }
-
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
+  
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-
+  
   return (
     <header
       className={`fixed w-full z-50 transition-colors duration-300 ${
@@ -59,10 +61,11 @@ const Header = () => {
               MineCraft
             </Link>
           </div>
-
+          
           {/* Mobile menu button */}
-          <div className="md:hidden">
-            <Button variant="ghost" onClick={toggleMenu} aria-label="Toggle menu" className="text-white">
+          <div className="md:hidden flex items-center">
+            <WalletIndicator />
+            <Button variant="ghost" onClick={toggleMenu} aria-label="Toggle menu" className="text-white ml-2">
               {isMenuOpen ? (
                 <X className="h-6 w-6" aria-hidden="true" />
               ) : (
@@ -70,14 +73,13 @@ const Header = () => {
               )}
             </Button>
           </div>
-
+          
           {/* Desktop navigation */}
           <nav className="hidden md:flex space-x-4 lg:space-x-8">
             <Link href="/blocks" className="text-sm font-medium text-white hover:text-green-400 flex items-center">
               <Cube className="mr-2 h-4 w-4" />
               Blocs
             </Link>
-
             <Link href="/nfts" className="text-sm font-medium text-white hover:text-green-400 flex items-center">
               <Diamond className="mr-2 h-4 w-4" />
               NFTs
@@ -98,8 +100,8 @@ const Header = () => {
               Guide
             </Link>
           </nav>
-
-          {/* Profile dropdown */}
+          
+          {/* Profile dropdown and wallet indicator */}
           <div className="hidden md:flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -130,11 +132,12 @@ const Header = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Se déconnecter</DropdownMenuItem>
+                <DropdownMenuItem onClick={disconnect}>Se déconnecter</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <WalletIndicator />
           </div>
-
+          
           {/* Mobile menu */}
           {isMenuOpen && (
             <div className="absolute top-full left-0 right-0 bg-gray-900 p-2 transition transform origin-top md:hidden">
@@ -146,7 +149,6 @@ const Header = () => {
                   <Cube className="mr-2 h-5 w-5" />
                   Blocs
                 </Link>
-
                 <Link href="/nfts" className="text-base font-medium text-white hover:text-green-400 flex items-center">
                   <Diamond className="mr-2 h-5 w-5" />
                   NFTs
@@ -203,4 +205,3 @@ const Header = () => {
 }
 
 export default Header
-
