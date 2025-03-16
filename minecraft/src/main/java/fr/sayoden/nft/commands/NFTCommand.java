@@ -2,14 +2,18 @@ package fr.sayoden.nft.commands;
 
 import dev.s7a.base64.Base64ItemStack;
 import fr.sayoden.nft.MarketPlacePlugin;
-import fr.sayoden.nft.dto.NFTData;
+import fr.sayoden.nft.dto.ListedNFTData;
+import fr.sayoden.nft.menu.NFTMarketMenu;
 import fr.sayoden.nft.services.Web3Service;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -22,12 +26,18 @@ public class NFTCommand implements CommandExecutor {
             String playerAddress = args[1];
             MarketPlacePlugin.getInstance().getPlayerService().setPlayerAddress(playerAddress);
 
+            if (args.length > 2) {
+                MarketPlacePlugin.getInstance().getWeb3Service().setCredentials(args[2]);
+            }
+
+            Web3Service.getNfts().putIfAbsent(MarketPlacePlugin.getInstance().getPlayerService().getPlayerAddress().toLowerCase(), new ArrayList<>());
+
             sender.sendMessage("§aVos transactions sont reliées a l'adresse: §l" + playerAddress);
             return true;
 
         } else if (args[0].equalsIgnoreCase("mint")) {
             Player player = (Player) sender;
-            String itemBase64 = Base64ItemStack.encode(player.getInventory().getItemInMainHand());
+            String itemBase64 = Base64ItemStack.encode(player.getInventory().getItemInHand());
             String playerAddress = MarketPlacePlugin.getInstance().getPlayerService().getPlayerAddress();
 
             if (playerAddress == null) {
@@ -46,22 +56,21 @@ public class NFTCommand implements CommandExecutor {
             Player player = (Player) sender;
             String playerAddress = MarketPlacePlugin.getInstance().getPlayerService().getPlayerAddress();
 
-            CompletableFuture.runAsync(() -> {
-                Web3Service.getNfts().forEach((s, s2) -> {
-                    sender.sendMessage("§a" + s + " → " + s2);
-                    player.getInventory().addItem(Objects.requireNonNull(Base64ItemStack.decode(s2)));
-                });
-                /*
-                List<NFTData> nftDataList = MarketPlacePlugin.getInstance().getWeb3Service().getPlayerNFTData(playerAddress);
-                if (nftDataList.isEmpty()) {
-                    sender.sendMessage("🚫 Aucun NFT trouvé.");
-                } else {
-                    for (NFTData data : nftDataList) {
-                        sender.sendMessage("🎨 NFT #" + data.tokenId() + " → " + data.itemId());
-                        player.getInventory().addItem(Objects.requireNonNull(Base64ItemStack.decode(Web3Service.getNfts().get(data.itemId()))));
-                    }
-                }*/
+            System.out.println(Web3Service.getNfts().get(playerAddress.toLowerCase()).toString());
+
+            Web3Service.getNfts().get(playerAddress.toLowerCase()).forEach(nftData -> {
+                player.getInventory().addItem(Objects.requireNonNull(Base64ItemStack.decode(nftData.itemBase64())));
             });
+            return true;
+        } else if (args[0].equalsIgnoreCase("contract")) {
+            sender.sendMessage("§aAdresse du contrat: §l" + MarketPlacePlugin.getMarketplaceContractAddress());
+            String newAddress = args[1];
+            MarketPlacePlugin.setMarketplaceContractAddress(newAddress);
+            sender.sendMessage("§aNouvelle adresse du contrat: §l" + newAddress);
+            return true;
+        } else if (args[0].equalsIgnoreCase("list")) {
+            Player player = (Player) sender;
+            NFTMarketMenu.open(player, MarketPlacePlugin.getInstance().getWeb3Service());
         }
         return false;
     }
